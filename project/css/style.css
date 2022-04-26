@@ -1,0 +1,4 @@
+html,body,h1,h2,h3,h4,h5, p { font-family: "Open Sans", sans-serif; font-size: 1 rem; color:#574545 }
+.bg-dashboard{ background-color:rgba(143, 125, 143, 0.9); }
+.dashboardTitle {font-weight: bold;}
+.sidebar-custom { background-color:#e4bdbd;z-index:3;width:200px;}
