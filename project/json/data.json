@@ -3,24 +3,20 @@
         "categorie": "Student", 
         "values": [
             {
-                "value": 0, 
-                "rate": "Not at all"
+                "value": 159, 
+                "rate": "GT3_pass"
             }, 
             {
-                "value": 4, 
-                "rate": "Not very much"
+                "value": 122, 
+                "rate": "GT3_fail"
             }, 
             {
-                "value": 12, 
-                "rate": "Medium"
+                "value": 72, 
+                "rate": "LE3_pass"
             }, 
             {
-                "value": 6, 
-                "rate": "Very much"
-            }, 
-            {
-                "value": 0, 
-                "rate": "Tremendously"
+                "value": 42, 
+                "rate": "LE3_fail"
             }
         ]
     }     
