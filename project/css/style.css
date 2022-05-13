@@ -1,4 +1,5 @@
 html,body,h1,h2,h3,h4,h5, p { font-family: "Open Sans", sans-serif; font-size: 1 rem; color:#574545 }
-.bg-dashboard{ background-color:rgba(143, 125, 143, 0.9); }
-.dashboardTitle {font-weight: bold;}
-.sidebar-custom { background-color:#e4bdbd;z-index:3;width:200px;}
+.container { border: 1px solid black; border-radius: 5px; box-sizing: border-box; margin: auto; padding: 20px; width: 50%;}
+.left { float: left; width: 47%; }
+.right { float: right; width: 47% }
+.border { border: 1px solid black; padding: 15px }
