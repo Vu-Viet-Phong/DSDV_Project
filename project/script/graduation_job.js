@@ -1,8 +1,7 @@
-
 // set the dimensions and margins of the graph
 var margin = {top: 10, right: 30, bottom: 20, left: 50},
     width = 700 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
+    height = 500 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
 var svg = d3.select("#guardian_job")
@@ -10,10 +9,12 @@ var svg = d3.select("#guardian_job")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
 
 // Parse the Data
 d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/gjob_result.csv", function(data) {
+
   // List of subgroups = header of the csv files = result here
   var subgroups = data.columns.slice(1)
 
@@ -30,9 +31,11 @@ d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/
     .call(d3.axisBottom(x).tickSize(0));
 
   // Add Y axis
-  var y = d3.scaleLinear().domain([0, 80]).range([ height, 0]);
-  
-  svg.append("g").call(d3.axisLeft(y));
+  var y = d3.scaleLinear()
+    .domain([0, 80])
+    .range([ height, 0 ]);
+  svg.append("g")
+    .call(d3.axisLeft(y));
 
   // Another scale for subgroup position?
   var xSubgroup = d3.scaleBand()
@@ -61,4 +64,5 @@ d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/
       .attr("width", xSubgroup.bandwidth())
       .attr("height", function(d) { return height - y(d.value); })
       .attr("fill", function(d) { return color(d.key); });
+
 })
