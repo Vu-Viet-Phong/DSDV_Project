@@ -128,4 +128,94 @@ barchart.selectAll("mybar")
   .attr("width", x.bandwidth())
   .attr("height", function(d) { return height - y(d.count); })
   .attr("fill", "#69b3a2")
+
+
+  d3.select("#sort-select").on("change", function (event, d) { 
+    var criterion = d3.select(this).property("value");
+  
+    dataset = dataset.sort(function (a, b) {
+      switch (criterion) {
+        case "none":
+          return b.ma - a.ma;
+        case "name":
+          if (a.province < b.province)
+            return -1;
+          else if (a.province > b.province)
+            return 1;
+          else return 0;
+        case "GDP":
+          return b["GRDP-VND"] - a["GRDP-VND"];
+      }
+    });
+    
+    xScale.domain([0, d3.max(dataset, function(d) { 
+        return d["GRDP-VND"]; 
+      })])
+      .nice();
+    
+    yScale.domain(d3.range(dataset.length));
+  
+    barchart.select(".xAxis")
+      .transition()
+      .duration(500)
+      .call(xAxis);
+  
+      barchart.select(".yAxis")
+      .transition()
+      .duration(500)
+      .call(yAxis);
+  
+      var key = function(d) {
+        return d.province;
+      }
+  
+    bars = barchart.selectAll("rect")
+               .data(dataset, key);
+  
+    bars.enter()
+      .append("rect")
+      .attr("x", 0)
+      .attr("y", h_barchart)
+      .attr("width", function(d) {
+        return xScale(d["GRDP-VND"]);
+      })
+      .attr("height", yScale.bandwidth())
+      .attr("fill", function(d) {
+        return "rgb(0, 0, " + Math.round(xScale(d["GRDP-VND"])) + ")";
+      })
+      .merge(bars) 
+      .transition()
+      .duration(500)
+      .attr("x", 0)
+      .attr("y", function(d, i) {
+        return yScale(i);
+      })
+      .attr("width", function(d) {
+        return xScale(d["GRDP-VND"]);
+      })
+      .attr("height", yScale.bandwidth());
+  
+    var addLabel = barchart.selectAll("text")
+      .data(dataset, key);
+  
+    addLabel.enter()
+        .append("text")
+        .merge(addLabel)
+        .transition()
+        .duration(500)
+        .attr("class", "label")
+        .text(function(d) { 
+          return d["GRDP-VND"];
+        })
+        .attr("x", function(d){
+          return xScale(d["GRDP-VND"]) + 20;
+        })
+        .attr("y", function(d, i){
+          return yScale(i) + yScale.bandwidth() * (0.7 + 0.1); 
+        })
+        .attr("font-family" , "sans-serif")
+        .attr("font-size" , "14px")
+        .attr("fill" , "black")
+        .attr("text-anchor", "middle");
+    });
 });
