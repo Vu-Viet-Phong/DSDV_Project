@@ -1,8 +1,8 @@
-famsize,Pstatus,Medu,Fedu,Mjob,Fjob,guardian,G1,G2,G3,average,result,Guardian Job,Guardian Education
-GT3,A,4,4,at_home,teacher,mother,5,6,6,5.666666667,Fail,at_home,4
-GT3,T,1,1,at_home,other,father,5,5,6,5.333333333,Fail,other,1
-LE3,T,1,1,at_home,other,mother,7,8,10,8.333333333,Fail,at_home,1
-GT3,T,4,2,health,services,mother,15,14,15,14.66666667,Pass,health,4
+famsize,Pstatus,Medu,Fedu,Mjob,Fjob,guardian,G1,G2,G3,average,result
+GT3,A,4,4,at_home,teacher,mother,5,6,6,5.666666667,Fail
+GT3,T,1,1,at_home,other,father,5,5,6,5.333333333,Fail
+LE3,T,1,1,at_home,other,mother,7,8,10,8.333333333,Fail
+GT3,T,4,2,health,services,mother,15,14,15,14.66666667,Pass
 GT3,T,3,3,other,other,father,6,10,10,8.666666667,Fail,other,3
 LE3,T,4,3,services,other,mother,15,15,15,15,Pass,services,4
 LE3,T,2,2,other,other,mother,12,12,11,11.66666667,Pass,other,2
