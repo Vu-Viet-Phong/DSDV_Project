@@ -6,7 +6,7 @@ var height = h - margin.top - margin.bottom;
 
 /* ------------------------------- Guardian Job ------------------------------- */
 
-d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/gjob_result.csv", function(data) {
+d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/Fedu_result.csv", function(data) {
   // Create first barchart element
   var barchart1 = d3.select("#guardian_job")
     .append("svg")
