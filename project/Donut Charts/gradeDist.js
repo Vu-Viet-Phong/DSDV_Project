@@ -2,6 +2,7 @@ var width = 500
 height = 500
 margin = 110
 
+
 var radius = Math.min(width, height) / 2 - margin
 
 var data = {"Excellent - 7.4%": 29,"Good - 23.8%" : 93,"Medium - 29.6%": 115,"Fail - 39.2%": 153}

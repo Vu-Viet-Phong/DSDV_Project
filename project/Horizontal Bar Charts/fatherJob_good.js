@@ -38,6 +38,6 @@ d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/
             .attr("y", function(d) { return y(d.fJob); })
             .attr("width", function(d) { return x(d.fValue); })
             .attr("height", y.bandwidth() )
-            .attr("fill", "Blue")
+            .attr("fill", "#257cff")
 });
 
