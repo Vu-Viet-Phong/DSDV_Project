@@ -4,7 +4,8 @@ margin = 110
 
 var radius = Math.min(width, height) / 2 - margin
 
-var data = {"Pass - 61%": 237, "Fail - 39%": 153}
+var data = {"Excellent - 7.4%": 29,"Good - 23.8%" : 93,"Medium - 29.6%": 115,"Fail - 39.2%": 153}
+
 
 var svg = d3.select("body")
     .append("svg")
@@ -14,17 +15,19 @@ var svg = d3.select("body")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
 var color = d3.scaleOrdinal()
-    .domain(["a", "b"])
-    .range(["#37ff45", "#ff3737"]);
+    .domain(["a", "b", "c", "d"])
+    .range(["#37ff45","#257cff", "#ffbc4b", "#ff3737"])
 
 var pie = d3.pie()
     .sort(null) 
     .value(function(d) {return d.value; })
 var data_ready = pie(d3.entries(data))
 
+
 var arc = d3.arc()
-    .innerRadius(radius * 0.5)        
+    .innerRadius(radius * 0.5)         
     .outerRadius(radius * 0.8)
+
 
 var outerArc = d3.arc()
     .innerRadius(radius * 0.9)
@@ -54,8 +57,8 @@ svg
         .attr('points', function(d) {
             var posA = arc.centroid(d) 
             var posB = outerArc.centroid(d) 
-            var posC = outerArc.centroid(d); 
-            var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2 
+            var posC = outerArc.centroid(d);
+            var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2  
             posC[0] = radius * 0.95 * (midangle < Math.PI ? 1 : -1); 
             return [posA, posB, posC]
         });
