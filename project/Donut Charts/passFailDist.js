@@ -1,11 +1,11 @@
 var width = 450
 height = 450
-margin = 40
+margin = 80
 
 // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
 var radius = Math.min(width, height) / 2 - margin
 
-var data = {Pass: 237, Fail: 153}
+var data = {"Pass - 61%": 237, "Fail - 39%": 153}
 
 // append the svg object to the div called 'my_dataviz'
 var svg = d3.select("body")
@@ -17,8 +17,8 @@ var svg = d3.select("body")
 
 // set the color scale
 var color = d3.scaleOrdinal()
-    .domain(["Pass", "Fail"])
-    .range("Green", "Red");
+    .domain(["a", "b"])
+    .range(["#37ff45", "#ff3737"]);
 
 // Compute the position of each group on the pie:
 var pie = d3.pie()
