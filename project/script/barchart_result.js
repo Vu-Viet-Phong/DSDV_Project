@@ -55,10 +55,7 @@ d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/
     .text("Record Count")
 
   // Create bars
-  barchart.selectAll("mybar")
-    .data(data)
-    .enter()
-    .append("rect")
+  barchart.selectAll("mybar").data(data).enter().append("rect")
     .attr("x", function(d) { return xScale(d.status); })
     .attr("y", function(d) { return yScale(d.count); })
     .attr("width", xScale.bandwidth())
@@ -69,153 +66,93 @@ d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/
 /* ------------------------------ Barchart of the number of student status results ------------------------------ */
 // Parse the Data
 d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/result/average_result.csv", function(data) {
-  var barchart = d3.select("#average_result")
+  // Create barchart element
+  var barchart2 = d3.select("#average_result")
     .append("svg")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
+      .attr("width", w)
+      .attr("height", h)
     .append("g")
-      .attr("transform",
-            "translate(" + margin.left + "," + margin.top + ")");
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-// X axis
-var x = d3.scaleBand()
-.range([ 0, width ])
-.domain(data.map(function(d) { return d.sex; }))
-.padding(0.7);
-barchart.append("g")
-.attr("transform", "translate(0," + height + ")")
-.call(d3.axisBottom(x))
-.selectAll("text")
-  .attr("transform", "translate(-10,0)rotate(-45)")
-  .attr("font-size","18px")
-  .attr("font-weight", 600)
-  .style("text-anchor", "end",);
-  
+  // Create scale function
+  var xScale = d3.scaleBand().range([0, width]).domain(data.map(function(d) { return d.sex; })).padding(0.7);
+  var yScale = d3.scaleLinear().domain([0, d3.max(data, function(d) { return d.count; })]).range([height, 0]);
 
-// Add X axis label:
-barchart.append("text")
-.attr("text-anchor", "end")
-.attr("x", width)
-.attr("y", height + margin.top + 20)
-.attr("font-size","28px")
-.attr("font-weight", 700)
-.text("Sex");
+  // Define X, Y axis
+  xAxis = d3.axisBottom(xScale);
+  yAxis = d3.axisLeft(yScale);
 
-// Add Y axis
-var y = d3.scaleLinear()
-.domain([0, 70])
-.range([ height, 0]);
-barchart.append("g")
-.call(d3.axisLeft(y));
+  // Create X axis
+  barchart2.append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .call(xAxis)
+    .selectAll("text")
+    .attr("transform", "translate(-10,0)rotate(-45)")
+    .attr("font-size","18px")
+    .attr("font-weight", 600)
+    .style("text-anchor", "end");
 
-// Y axis label:
-barchart.append("text")
-.attr("text-anchor", "end")
-.attr("transform", "rotate(-90)")
-.attr("y", -margin.left+20)
-.attr("x", -margin.top)
-.attr("font-size","28px")
-.attr("font-weight", 700)
-.text("Record Count")
+  // Create Y axis
+  barchart2.append("g").call(yAxis);
 
-// Bars
-barchart.selectAll("mybar")
-.data(data)
-.enter()
-.append("rect")
-  .attr("x", function(d) { return x(d.sex); })
-  .attr("y", function(d) { return y(d.count); })
-  .attr("width", x.bandwidth())
-  .attr("height", function(d) { return height - y(d.count); })
-  .attr("fill", "#69b3a2")
+  // Add X axis label:
+  barchart2.append("text")
+    .attr("text-anchor", "end")
+    .attr("x", width)
+    .attr("y", height + margin.top + 20)
+    .attr("font-size","24px")
+    .attr("font-weight", 700)
+    .text("Sex");
 
+  // Y axis label:
+  barchart2.append("text")
+    .attr("text-anchor", "end")
+    .attr("transform", "rotate(-90)")
+    .attr("y", -margin.left + 25)
+    .attr("x", -margin.top)
+    .attr("font-size","24px")
+    .attr("font-weight", 700)
+    .text("Record Count");
 
-  d3.select("#sort-select").on("change", function (event, d) { 
+// Create bars
+  barchart2.selectAll("rect").data(data).enter().append("rect")
+    .attr("x", function(d) { return xScale(d.sex); })
+    .attr("y", function(d) { return yScale(d.count); })
+    .attr("width", xScale.bandwidth())
+    .attr("height", function(d) { return height - yScale(d.count); })
+    .attr("fill", "#69b3a2");
+
+  d3.select("#sort-select").on("change", function () { 
     var criterion = d3.select(this).property("value");
-  
-    dataset = dataset.sort(function (a, b) {
-      switch (criterion) {
-        case "none":
-          return b.ma - a.ma;
-        case "name":
-          if (a.province < b.province)
-            return -1;
-          else if (a.province > b.province)
-            return 1;
-          else return 0;
-        case "GDP":
-          return b["GRDP-VND"] - a["GRDP-VND"];
+    console.log(criterion);
+    if (criterion == "average") {
+        d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/result/average_result.csv", function(dataset) {
+          barchart2.selectAll("rect").data(dataset).transition().duration(1000)
+            .attr("x", function(d) { return xScale(d.sex); })
+            .attr("y", function(d) { return yScale(d.count); })
+            .attr("width", xScale.bandwidth())
+            .attr("height", function(d) { return height - yScale(d.count); })
+            .attr("fill", "#69b3a2");
+        });
+      } else if (criterion == "good") {   
+
+        d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/result/good_result.csv", function(dataset) {
+          barchart2.selectAll("rect").data(dataset).transition().duration(1000)
+            .attr("x", function(d) { return xScale(d.sex); })
+            .attr("y", function(d) { return yScale(d.count); })
+            .attr("width", xScale.bandwidth())
+            .attr("height", function(d) { return height - yScale(d.count); })
+            .attr("fill", "#69b3a2");
+        });
+      } else {
+        d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/result/excellent_result.csv", function(dataset) {
+          barchart2.selectAll("rect").data(dataset).transition().duration(1000)
+            .attr("x", function(d) { return xScale(d.sex); })
+            .attr("y", function(d) { return yScale(d.count); })
+            .attr("width", xScale.bandwidth())
+            .attr("height", function(d) { return height - yScale(d.count); })
+            .attr("fill", "#69b3a2");
+        });
       }
-    });
-    
-    xScale.domain([0, d3.max(dataset, function(d) { 
-        return d["GRDP-VND"]; 
-      })])
-      .nice();
-    
-    yScale.domain(d3.range(dataset.length));
-  
-    barchart.select(".xAxis")
-      .transition()
-      .duration(500)
-      .call(xAxis);
-  
-      barchart.select(".yAxis")
-      .transition()
-      .duration(500)
-      .call(yAxis);
-  
-      var key = function(d) {
-        return d.province;
-      }
-  
-    bars = barchart.selectAll("rect")
-               .data(dataset, key);
-  
-    bars.enter()
-      .append("rect")
-      .attr("x", 0)
-      .attr("y", h_barchart)
-      .attr("width", function(d) {
-        return xScale(d["GRDP-VND"]);
-      })
-      .attr("height", yScale.bandwidth())
-      .attr("fill", function(d) {
-        return "rgb(0, 0, " + Math.round(xScale(d["GRDP-VND"])) + ")";
-      })
-      .merge(bars) 
-      .transition()
-      .duration(500)
-      .attr("x", 0)
-      .attr("y", function(d, i) {
-        return yScale(i);
-      })
-      .attr("width", function(d) {
-        return xScale(d["GRDP-VND"]);
-      })
-      .attr("height", yScale.bandwidth());
-  
-    var addLabel = barchart.selectAll("text")
-      .data(dataset, key);
-  
-    addLabel.enter()
-        .append("text")
-        .merge(addLabel)
-        .transition()
-        .duration(500)
-        .attr("class", "label")
-        .text(function(d) { 
-          return d["GRDP-VND"];
-        })
-        .attr("x", function(d){
-          return xScale(d["GRDP-VND"]) + 20;
-        })
-        .attr("y", function(d, i){
-          return yScale(i) + yScale.bandwidth() * (0.7 + 0.1); 
-        })
-        .attr("font-family" , "sans-serif")
-        .attr("font-size" , "14px")
-        .attr("fill" , "black")
-        .attr("text-anchor", "middle");
-    });
+  });
 });
