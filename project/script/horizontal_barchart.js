@@ -1,6 +1,6 @@
 //All the variables
 var margin = { top: 10, right: 30, bottom: 30, left: 100 };
-var w = 300, h = 300;
+var w = 370, h = 300;
 var width = w - margin.left - margin.right;
 var height = h - margin.top - margin.bottom;
 
