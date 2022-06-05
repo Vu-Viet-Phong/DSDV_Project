@@ -91,7 +91,7 @@ d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/
   // Create X axis
   barchart_fgood_fail.append("g").call(yAxis);
 
-  //Bars
+  // Create bars
   barchart_fgood_fail.selectAll("rect").data(data).enter().append("rect")
     .attr("x", xScale(0))
     .attr("y", function(d) { return yScale(d.fJob); })
