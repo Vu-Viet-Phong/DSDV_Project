@@ -7,6 +7,7 @@ var height = h - margin.top - margin.bottom;
 /* ------------------------------------ Barchart of the father job fail ------------------------------------ */
 d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/job_fail.csv", function(data) {
   // Create barchart element
+  
   var barchart1 = d3.select("#father-job-fail")
     .append("svg")
       .attr("width", w)

@@ -1,6 +1,6 @@
 // Set the dimensions and margins of the barchart
 var margin = {top: 30, right: 30, bottom: 70, left: 60};
-var w = 700, h = 600;
+var w = 600, h = 600;
 var width = w - margin.left - margin.right;
 var height = h - margin.top - margin.bottom;
   
