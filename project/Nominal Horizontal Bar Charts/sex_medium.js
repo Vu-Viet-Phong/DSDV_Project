@@ -1,4 +1,4 @@
-d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/job_excellent.csv", function(data) {
+d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/nominal_medium.csv", function(data) {
         //All the variables
         var margin = {top: 10, right: 30, bottom: 30, left: 100},
             width = 600 - margin.left - margin.right,
@@ -12,19 +12,16 @@ d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/
             .append("g")
                 .attr("transform","translate(" + margin.left + "," + margin.top + ")");
 
-        // sort data
-        data.sort(function(b, a) {
-            return a.fValue - b.fValue;
-        });
+
         //Scales
         var x = d3.scaleLinear()
-                .domain([0, 0.5])
+                .domain([0, 60])
                 .range([ 0, width]);
 
   // Y axis
         var y = d3.scaleBand()
                 .range([ 0, height ])
-                .domain(data.map(function(d) { return d.fJob; }))
+                .domain(data.map(function(d) { return d.sex; }))
                 .padding(.1);
          svg.append("g")
             .call(d3.axisLeft(y))
@@ -35,9 +32,9 @@ d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/
             .enter()
             .append("rect")
             .attr("x", x(0) )
-            .attr("y", function(d) { return y(d.fJob); })
-            .attr("width", function(d) { return x(d.fValue); })
+            .attr("y", function(d) { return y(d.sex); })
+            .attr("width", function(d) { return x(d.sValue); })
             .attr("height", y.bandwidth() )
-            .attr("fill", "#37ff45")
+            .attr("fill", "#ffbc4b")
 });
 
