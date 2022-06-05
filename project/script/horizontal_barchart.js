@@ -1,14 +1,109 @@
-//All the variables
+// Set the dimensions and margins of the barchart
 var margin = { top: 10, right: 30, bottom: 30, left: 100 };
-var w = 370, h = 300;
+var w = 330, h = 300;
 var width = w - margin.left - margin.right;
 var height = h - margin.top - margin.bottom;
 
 /* ------------------------------------ Barchart of the father job fail ------------------------------------ */
 d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/job_fail.csv", function(data) {
-  // Create barchart element
+  // Create barchart father job fail element
+  var barchart_fjob_fail = d3.select("#father-job-fail")
+    .append("svg")
+      .attr("width", w)
+      .attr("height", h)
+    .append("g")
+      .attr("transform","translate(" + margin.left + "," + margin.top + ")");
+
+  // Sort data
+  data.sort(function(b, a) { return a.fValue - b.fValue; });
   
-  var barchart1 = d3.select("#father-job-fail")
+  // Create scale function
+  var xScale = d3.scaleLinear().domain([0, 0.5]).range([0, width]);
+  var yScale = d3.scaleBand().range([0, height]).domain(data.map(function(d) { return d.fJob; })).padding(.1);
+  
+  // Define X, Y axis
+  var yAxis = d3.axisLeft(yScale);
+
+  // Create X axis
+  barchart_fjob_fail.append("g").call(yAxis);
+
+  // Create bars
+  barchart_fjob_fail.selectAll("rect").data(data).enter().append("rect")
+    .attr("x", xScale(0))
+    .attr("y", function(d) { return yScale(d.fJob); })
+    .attr("width", function(d) { return xScale(d.fValue); })
+    .attr("height", yScale.bandwidth())
+    .attr("fill", "Red")
+});
+
+/* ------------------------------------ Barchart of the father job medium ------------------------------------ */
+d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/job_medium.csv", function(data) {
+  // Create barchart father job medium element
+  var barchart_fmedium_fail = d3.select("#father-job-average")
+    .append("svg")
+      .attr("width", w)
+      .attr("height", h)
+    .append("g")
+      .attr("transform","translate(" + margin.left + "," + margin.top + ")");
+
+  // Sort data
+  data.sort(function(b, a) { return a.fValue - b.fValue; });
+  
+  // Create scale function
+  var xScale = d3.scaleLinear().domain([0, 0.5]).range([0, width]);
+  var yScale = d3.scaleBand().range([0, height]).domain(data.map(function(d) { return d.fJob; })).padding(.1);
+  
+  // Define X, Y axis
+  var yAxis = d3.axisLeft().scale(yScale);
+
+  // Create X axis
+  barchart_fmedium_fail.append("g").call(yAxis);
+
+  //Bars
+  barchart_fmedium_fail.selectAll("rect").data(data).enter().append("rect")
+    .attr("x", xScale(0))
+    .attr("y", function(d) { return yScale(d.fJob); })
+    .attr("width", function(d) { return xScale(d.fValue); })
+    .attr("height", yScale.bandwidth())
+    .attr("fill", "Yellow");
+});
+
+/* ------------------------------------ Barchart of the father job good ------------------------------------ */
+d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/job_good.csv", function(data) {
+  // Create barchart father good job element
+  var barchart_fgood_fail = d3.select("#father-job-good")
+    .append("svg")
+      .attr("width", w)
+      .attr("height", h)
+    .append("g")
+      .attr("transform","translate(" + margin.left + "," + margin.top + ")");
+
+  // Sort data
+  data.sort(function(b, a) { return a.fValue - b.fValue; });
+        
+  // Create scale function
+  var xScale = d3.scaleLinear().domain([0, 0.5]).range([0, width]);
+  var yScale = d3.scaleBand().range([0, height]).domain(data.map(function(d) { return d.fJob; })).padding(.1);
+  
+  // Define X, Y axis
+  var yAxis = d3.axisLeft().scale(yScale);
+
+  // Create X axis
+  barchart_fgood_fail.append("g").call(yAxis);
+
+  //Bars
+  barchart_fgood_fail.selectAll("rect").data(data).enter().append("rect")
+    .attr("x", xScale(0))
+    .attr("y", function(d) { return yScale(d.fJob); })
+    .attr("width", function(d) { return xScale(d.fValue); })
+    .attr("height", yScale.bandwidth() )
+    .attr("fill", "Blue")
+});
+
+/* ------------------------------------ Barchart of the father job excellent ------------------------------------ */
+d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/job_excellent.csv", function(data) {
+  // Create barchart father good job element
+  var barchart_fexcellent_fail = d3.select("#father-job-excellent")
     .append("svg")
       .attr("width", w)
       .attr("height", h)
@@ -16,313 +111,154 @@ d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/
       .attr("transform","translate(" + margin.left + "," + margin.top + ")");
 
   // sort data
-  data.sort(function(b, a) {
-      return a.fValue - b.fValue;
-  });
+  data.sort(function(b, a) { return a.fValue - b.fValue; });
   
-  // Scales
-  var x = d3.scaleLinear().domain([0, 0.5]).range([ 0, width]);
-
-  // Y axis
-  var y = d3.scaleBand()
-          .range([0, height])
-          .domain(data.map(function(d) { return d.fJob; }))
-          .padding(.1);
+  // Create scale function
+  var xScale = d3.scaleLinear().domain([0, 0.5]).range([0, width]);
+  var yScale = d3.scaleBand().range([0, height]).domain(data.map(function(d) { return d.fJob; })).padding(.1);
   
-  barchart1.append("g").call(d3.axisLeft(y))
+  // Define X, Y axis
+  var yAxis = d3.axisLeft().scale(yScale);
 
-  //Bars
-  barchart1.selectAll("myRect")
-    .data(data)
-    .enter()
-    .append("rect")
-    .attr("x", x(0) )
-    .attr("y", function(d) { return y(d.fJob); })
-    .attr("width", function(d) { return x(d.fValue); })
-    .attr("height", y.bandwidth() )
+  // Create X axis
+  barchart_fexcellent_fail.append("g").call(yAxis);
+
+  // Create bars
+  barchart_fexcellent_fail.selectAll("rect").data(data).enter().append("rect")
+    .attr("x", xScale(0))
+    .attr("y", function(d) { return yScale(d.fJob); })
+    .attr("width", function(d) { return xScale(d.fValue); })
+    .attr("height", yScale.bandwidth() )
+    .attr("fill", "Green")
+});
+
+/* ------------------------------------ Barchart of the mother job fail ------------------------------------ */
+d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/job_fail.csv", function(data) {
+  // Create barchart father job fail element
+  var barchart_mjob_fail = d3.select("#mother-job-fail")
+    .append("svg")
+      .attr("width", w)
+      .attr("height", h)
+    .append("g")
+      .attr("transform","translate(" + margin.left + "," + margin.top + ")");
+        
+  // sort data
+  data.sort(function(b, a) { return a.mValue - b.mValue; });
+
+  // Create scale function
+  var xScale = d3.scaleLinear().domain([0, 0.5]).range([0, width]);
+  var yScale = d3.scaleBand().range([0, height]).domain(data.map(function(d) { return d.mJob; })).padding(.1);
+  
+  // Define X, Y axis
+  var yAxis = d3.axisLeft().scale(yScale);
+
+  // Create X axis
+  barchart_mjob_fail.append("g").call(yAxis);
+
+  // Create bars
+  barchart_mjob_fail.selectAll("myRect").data(data).enter().append("rect")
+    .attr("x", xScale(0))
+    .attr("y", function(d) { return yScale(d.mJob); })
+    .attr("width", function(d) { return xScale(d.mValue); })
+    .attr("height", yScale.bandwidth() )
     .attr("fill", "Red")
 });
 
 
-/* ------------------------------------ Barchart of the father job medium ------------------------------------ */
+/* ------------------------------------ Barchart of the mother job medium ------------------------------------ */
 d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/job_medium.csv", function(data) {
-  // Create barchart element
-  var barchart2 = d3.select("#father-job-average")
-            .append("svg")
-                .attr("width", width + margin.left + margin.right)
-                .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-                .attr("transform","translate(" + margin.left + "," + margin.top + ")");
+  // Create barchart mother job medium element
+  var barchart_mmedium_fail = d3.select("#mother-job-average")
+    .append("svg")
+      .attr("width", w)
+      .attr("height", h)
+    .append("g")
+      .attr("transform","translate(" + margin.left + "," + margin.top + ")");
 
-        // sort data
-        data.sort(function(b, a) {
-            return a.fValue - b.fValue;
-        });
-        //Scales
-        var x = d3.scaleLinear()
-                .domain([0, 0.5])
-                .range([ 0, width]);
+  // Sort data
+  data.sort(function(b, a) { return a.mValue - b.mValue; });
 
-  // Y axis
-        var y = d3.scaleBand()
-                .range([ 0, height ])
-                .domain(data.map(function(d) { return d.fJob; }))
-                .padding(.1);
-                barchart2.append("g")
-            .call(d3.axisLeft(y))
+  // Create scale function
+  var xScale = d3.scaleLinear().domain([0, 0.5]).range([0, width]);
+  var yScale = d3.scaleBand().range([0, height]).domain(data.map(function(d) { return d.mJob; })).padding(.1);
+  
+  // Define X, Y axis
+  var yAxis = d3.axisLeft().scale(yScale);
 
-  //Bars
-  barchart2.selectAll("myRect")
-            .data(data)
-            .enter()
-            .append("rect")
-            .attr("x", x(0) )
-            .attr("y", function(d) { return y(d.fJob); })
-            .attr("width", function(d) { return x(d.fValue); })
-            .attr("height", y.bandwidth() )
-            .attr("fill", "Yellow")
+  // Create X axis
+  barchart_mmedium_fail.append("g").call(yAxis);
+
+  // Create bars
+  barchart_mmedium_fail.selectAll("myRect").data(data).enter().append("rect")
+    .attr("x", xScale(0) )
+    .attr("y", function(d) { return yScale(d.mJob); })
+    .attr("width", function(d) { return xScale(d.mValue); })
+    .attr("height", yScale.bandwidth() )
+    .attr("fill", "Yellow");
 });
 
-/* ------------------------------------ Barchart of the father job good ------------------------------------ */
+
+/* ------------------------------------ Barchart of the mother job good ------------------------------------ */
 d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/job_good.csv", function(data) {
-  // Create barchart element
-        var barchart3 = d3.select("#father-job-good")
-            .append("svg")
-                .attr("width", width + margin.left + margin.right)
-                .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-                .attr("transform","translate(" + margin.left + "," + margin.top + ")");
-
-        // sort data
-        data.sort(function(b, a) {
-            return a.fValue - b.fValue;
-        });
-        //Scales
-        var x = d3.scaleLinear()
-                .domain([0, 0.5])
-                .range([ 0, width]);
-
-  // Y axis
-        var y = d3.scaleBand()
-                .range([ 0, height ])
-                .domain(data.map(function(d) { return d.fJob; }))
-                .padding(.1);
-                barchart3.append("g")
-            .call(d3.axisLeft(y))
-
-  //Bars
-  barchart3.selectAll("myRect")
-            .data(data)
-            .enter()
-            .append("rect")
-            .attr("x", x(0) )
-            .attr("y", function(d) { return y(d.fJob); })
-            .attr("width", function(d) { return x(d.fValue); })
-            .attr("height", y.bandwidth() )
-            .attr("fill", "Blue")
-});
-
-
-d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/job_excellent.csv", function(data) {
-        //SVG
-        var barchart4 = d3.select("#father-job-excellent")
-            .append("svg")
-                .attr("width", width + margin.left + margin.right)
-                .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-                .attr("transform","translate(" + margin.left + "," + margin.top + ")");
-
-        // sort data
-        data.sort(function(b, a) {
-            return a.mValue - b.mValue;
-        });
-        //Scales
-        var x = d3.scaleLinear()
-                .domain([0, 0.5])
-                .range([ 0, width]);
-
-  // Y axis
-        var y = d3.scaleBand()
-                .range([ 0, height ])
-                .domain(data.map(function(d) { return d.mJob; }))
-                .padding(.1);
-                barchart4.append("g")
-            .call(d3.axisLeft(y))
-
-  //Bars
-  barchart4.selectAll("myRect")
-            .data(data)
-            .enter()
-            .append("rect")
-            .attr("x", x(0) )
-            .attr("y", function(d) { return y(d.mJob); })
-            .attr("width", function(d) { return x(d.mValue); })
-            .attr("height", y.bandwidth() )
-            .attr("fill", "Green")
-});
-
-
-d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/job_fail.csv", function(data) {
-        //SVG
-        var svg = d3.select("#mother-job-fail")
-            .append("svg")
-                .attr("width", width + margin.left + margin.right)
-                .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-                .attr("transform","translate(" + margin.left + "," + margin.top + ")");
+  // Create barchart mother job good element
+  var barchart_mgood_fail = d3.select("#mother-job-good")
+    .append("svg")
+      .attr("width", w)
+      .attr("height", h)
+    .append("g")
+      .attr("transform","translate(" + margin.left + "," + margin.top + ")");
         
-        // sort data
-        data.sort(function(b, a) {
-            return a.mValue - b.mValue;
-        });
+  // Sort data
+  data.sort(function(b, a) { return a.mValue - b.mValue; });
 
-        //Scales
-        var x = d3.scaleLinear()
-                .domain([0, 0.6])
-                .range([ 0, width]);
-        svg.append("g")
-            .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(x))
-            .selectAll("text")
-            .attr("transform", "translate(-10,0)rotate(-45)")
-            .style("text-anchor", "end");
+  // Create scale function
+  var xScale = d3.scaleLinear().domain([0, 0.5]).range([0, width]);
+  var yScale = d3.scaleBand().range([0, height]).domain(data.map(function(d) { return d.mJob; })).padding(.1);
+  
+  // Define X, Y axis
+  var yAxis = d3.axisLeft().scale(yScale);
 
-  // Y axis
-        var y = d3.scaleBand()
-                .range([ 0, height ])
-                .domain(data.map(function(d) { return d.mJob; }))
-                .padding(.1);
-         svg.append("g")
-            .call(d3.axisLeft(y))
+  // Create X axis
+  barchart_mgood_fail.append("g").call(yAxis);
 
-  //Bars
-        svg.selectAll("myRect")
-            .data(data)
-            .enter()
-            .append("rect")
-            .attr("x", x(0) )
-            .attr("y", function(d) { return y(d.mJob); })
-            .attr("width", function(d) { return x(d.mValue); })
-            .attr("height", y.bandwidth() )
-            .attr("fill", "Red")
+  // Create bars
+  barchart_mgood_fail.selectAll("myRect").data(data).enter().append("rect")
+    .attr("x", xScale(0))
+    .attr("y", function(d) { return yScale(d.mJob); })
+    .attr("width", function(d) { return xScale(d.mValue); })
+    .attr("height", yScale.bandwidth())
+    .attr("fill", "Blue")
 });
 
 
-d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/job_medium.csv", function(data) {
-
-        //SVG
-        var svg = d3.select("#mother-job-average")
-            .append("svg")
-                .attr("width", width + margin.left + margin.right)
-                .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-                .attr("transform","translate(" + margin.left + "," + margin.top + ")");
-
-        // sort data
-        data.sort(function(b, a) {
-            return a.fValue - b.fValue;
-        });
-        //Scales
-        var x = d3.scaleLinear()
-                .domain([0, 0.5])
-                .range([ 0, width]);
-
-  // Y axis
-        var y = d3.scaleBand()
-                .range([ 0, height ])
-                .domain(data.map(function(d) { return d.fJob; }))
-                .padding(.1);
-         svg.append("g")
-            .call(d3.axisLeft(y))
-
-  //Bars
-        svg.selectAll("myRect")
-            .data(data)
-            .enter()
-            .append("rect")
-            .attr("x", x(0) )
-            .attr("y", function(d) { return y(d.fJob); })
-            .attr("width", function(d) { return x(d.fValue); })
-            .attr("height", y.bandwidth() )
-            .attr("fill", "Yellow")
-});
-
-
-d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/job_good.csv", function(data) {
-
-        var svg = d3.select("#mother-job-good")
-            .append("svg")
-                .attr("width", width + margin.left + margin.right)
-                .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-                .attr("transform","translate(" + margin.left + "," + margin.top + ")");
-        
-        // sort data
-        data.sort(function(b, a) {
-            return a.mValue - b.mValue;
-        });
-
-        //Scales
-        var x = d3.scaleLinear()
-                .domain([0, 0.6])
-                .range([ 0, width]);
-
-  // Y axis
-        var y = d3.scaleBand()
-                .range([ 0, height ])
-                .domain(data.map(function(d) { return d.mJob; }))
-                .padding(.1);
-         svg.append("g")
-            .call(d3.axisLeft(y))
-
-  //Bars
-        svg.selectAll("myRect")
-            .data(data)
-            .enter()
-            .append("rect")
-            .attr("x", x(0) )
-            .attr("y", function(d) { return y(d.mJob); })
-            .attr("width", function(d) { return x(d.mValue); })
-            .attr("height", y.bandwidth() )
-            .attr("fill", "Blue")
-});
-
-
+/* ------------------------------------ Barchart of the mother job excellent ------------------------------------ */
 d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/job_excellent.csv", function(data) {
+  // Create barchart mother job excellent element
+  var barchart_mexcellent_fail = d3.select("#mother-job-excellent")
+    .append("svg")
+      .attr("width", w)
+      .attr("height", h)
+    .append("g")
+      .attr("transform","translate(" + margin.left + "," + margin.top + ")");
 
-        //SVG
-        var svg = d3.select("#mother-job-excellent")
-            .append("svg")
-                .attr("width", width + margin.left + margin.right)
-                .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-                .attr("transform","translate(" + margin.left + "," + margin.top + ")");
+  // Sort data
+  data.sort(function(b, a) { return a.mValue - b.mValue; });
 
-        // sort data
-        data.sort(function(b, a) {
-            return a.mValue - b.mValue;
-        });
-        //Scales
-        var x = d3.scaleLinear()
-                .domain([0, 0.5])
-                .range([ 0, width]);
+  // Create scale function
+  var xScale = d3.scaleLinear().domain([0, 0.5]).range([0, width]);
+  var yScale = d3.scaleBand().range([0, height]).domain(data.map(function(d) { return d.mJob; })).padding(.1);
+  
+  // Define X, Y axis
+  var yAxis = d3.axisLeft().scale(yScale);
 
-  // Y axis
-        var y = d3.scaleBand()
-                .range([ 0, height ])
-                .domain(data.map(function(d) { return d.mJob; }))
-                .padding(.1);
-         svg.append("g")
-            .call(d3.axisLeft(y))
+  // Create X axis
+  barchart_mexcellent_fail.append("g").call(yAxis);
 
-  //Bars
-        svg.selectAll("myRect")
-            .data(data)
-            .enter()
-            .append("rect")
-            .attr("x", x(0) )
-            .attr("y", function(d) { return y(d.mJob); })
-            .attr("width", function(d) { return x(d.mValue); })
-            .attr("height", y.bandwidth() )
-            .attr("fill", "Green")
+  // Create bars
+  barchart_mexcellent_fail.selectAll("rect").data(data).enter().append("rect")
+    .attr("x", xScale(0))
+    .attr("y", function(d) { return yScale(d.mJob); })
+    .attr("width", function(d) { return xScale(d.mValue); })
+    .attr("height", yScale.bandwidth() )
+    .attr("fill", "Green");
 });
