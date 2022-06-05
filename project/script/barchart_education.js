@@ -54,6 +54,12 @@ d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/
       .attr("width", xSubgroup.bandwidth())
       .attr("height", function(d) { return height - yScale(d.value); })
       .attr("fill", function(d) { return color(d.key); });
+
+  
+barchart_medu.append("circle").attr("cx",240).attr("cy", 550).attr("r", 8).style("fill", "#e41a1c")
+barchart_medu.append("circle").attr("cx", 320).attr("cy", 550).attr("r", 8).style("fill", "#377eb8")
+barchart_medu.append("text").attr("x", 190).attr("y", 550).text("Pass").style("font-size", "17px").attr("alignment-baseline","middle")
+barchart_medu.append("text").attr("x", 270).attr("y", 550).text("Fail").style("font-size", "17px").attr("alignment-baseline","middle")
 });
 
 /* ----------------------------------- Barchart of father education result ----------------------------------- */
@@ -106,4 +112,10 @@ d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/
       .attr("width", xSubgroup.bandwidth())
       .attr("height", function(d) { return height - yScale(d.value); })
       .attr("fill", function(d) { return color(d.key); });
+
+  barchart_fedu.append("circle").attr("cx",240).attr("cy",550).attr("r", 8).style("fill", "#e41a1c")
+  barchart_fedu.append("circle").attr("cx",320).attr("cy",550).attr("r", 8).style("fill", "#377eb8")
+  barchart_fedu.append("text").attr("x", 190).attr("y", 550).text("Pass").style("font-size", "17px").attr("alignment-baseline","middle")
+  barchart_fedu.append("text").attr("x", 270).attr("y", 550).text("Fail").style("font-size", "17px").attr("alignment-baseline","middle")
+      
 });
