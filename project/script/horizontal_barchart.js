@@ -33,7 +33,7 @@ d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/
     .attr("y", function(d) { return yScale(d.fJob); })
     .attr("width", function(d) { return xScale(d.fValue); })
     .attr("height", yScale.bandwidth())
-    .attr("fill", "Red")
+    .attr("fill", "#ff3737")
 });
 
 /* ------------------------------------ Barchart of the father job medium ------------------------------------ */
@@ -65,7 +65,7 @@ d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/
     .attr("y", function(d) { return yScale(d.fJob); })
     .attr("width", function(d) { return xScale(d.fValue); })
     .attr("height", yScale.bandwidth())
-    .attr("fill", "Yellow");
+    .attr("fill", "#ffbc4b");
 });
 
 /* ------------------------------------ Barchart of the father job good ------------------------------------ */
@@ -97,7 +97,7 @@ d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/
     .attr("y", function(d) { return yScale(d.fJob); })
     .attr("width", function(d) { return xScale(d.fValue); })
     .attr("height", yScale.bandwidth() )
-    .attr("fill", "Blue")
+    .attr("fill", "#257cff")
 });
 
 /* ------------------------------------ Barchart of the father job excellent ------------------------------------ */
@@ -112,7 +112,35 @@ d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/
 
   // sort data
   data.sort(function(b, a) { return a.fValue - b.fValue; });
-  
+
+  var tooltip = d3.select("body")
+                .append("div")
+                .style("opacity", 0)
+                .attr("class", "tooltip")
+                .style("background-color", "white")
+                .style("border", "solid")
+                .style("border-width", "1px")
+                .style("border-radius", "5px")
+                .style("padding", "10px")
+        
+  var mouseover = function(d) {
+      tooltip
+        .style("opacity", 1)
+  }
+        
+  var mousemove = function(d) {
+      tooltip
+        .html(d.fValue * 100 + "%")
+        .style("right", (d3.mouse(this)[0]+90) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
+        .style("top", (d3.mouse(this)[0])+ "px")
+  }
+            
+  var mouseleave = function(d) {
+      tooltip
+        .transition()
+        .duration(200)
+        .style("opacity", 0)
+  }
   // Create scale function
   var xScale = d3.scaleLinear().domain([0, 0.5]).range([0, width]);
   var yScale = d3.scaleBand().range([0, height]).domain(data.map(function(d) { return d.fJob; })).padding(.1);
@@ -129,7 +157,10 @@ d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/
     .attr("y", function(d) { return yScale(d.fJob); })
     .attr("width", function(d) { return xScale(d.fValue); })
     .attr("height", yScale.bandwidth() )
-    .attr("fill", "Green")
+    .attr("fill", "#37ff45")
+    //.on("mouseover", mouseover )
+    //.on("mousemove", mousemove )
+    //.on("mouseleave", mouseleave )
 });
 
 /* ------------------------------------ Barchart of the mother job fail ------------------------------------ */
@@ -161,7 +192,7 @@ d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/
     .attr("y", function(d) { return yScale(d.mJob); })
     .attr("width", function(d) { return xScale(d.mValue); })
     .attr("height", yScale.bandwidth() )
-    .attr("fill", "Red")
+    .attr("fill", "#ff3737")
 });
 
 
@@ -194,7 +225,7 @@ d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/
     .attr("y", function(d) { return yScale(d.mJob); })
     .attr("width", function(d) { return xScale(d.mValue); })
     .attr("height", yScale.bandwidth() )
-    .attr("fill", "Yellow");
+    .attr("fill", "#ffbc4b");
 });
 
 
@@ -227,7 +258,7 @@ d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/
     .attr("y", function(d) { return yScale(d.mJob); })
     .attr("width", function(d) { return xScale(d.mValue); })
     .attr("height", yScale.bandwidth())
-    .attr("fill", "Blue")
+    .attr("fill", "#257cff")
 });
 
 
@@ -260,5 +291,5 @@ d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/
     .attr("y", function(d) { return yScale(d.mJob); })
     .attr("width", function(d) { return xScale(d.mValue); })
     .attr("height", yScale.bandwidth() )
-    .attr("fill", "Green");
+    .attr("fill", "#37ff45");
 });
