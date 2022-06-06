@@ -33,7 +33,7 @@ d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/
     .attr("y", function(d) { return yScale(d.fJob); })
     .attr("width", function(d) { return xScale(d.fValue); })
     .attr("height", yScale.bandwidth())
-    .attr("fill", "Red")
+    .attr("fill", "#ff3737")
 });
 
 /* ------------------------------------ Barchart of the father job medium ------------------------------------ */
@@ -65,7 +65,7 @@ d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/
     .attr("y", function(d) { return yScale(d.fJob); })
     .attr("width", function(d) { return xScale(d.fValue); })
     .attr("height", yScale.bandwidth())
-    .attr("fill", "Yellow");
+    .attr("fill", "#ffbc4b");
 });
 
 /* ------------------------------------ Barchart of the father job good ------------------------------------ */
@@ -97,7 +97,7 @@ d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/
     .attr("y", function(d) { return yScale(d.fJob); })
     .attr("width", function(d) { return xScale(d.fValue); })
     .attr("height", yScale.bandwidth() )
-    .attr("fill", "Blue")
+    .attr("fill", "#257cff")
 });
 
 /* ------------------------------------ Barchart of the father job excellent ------------------------------------ */
@@ -129,7 +129,7 @@ d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/
     .attr("y", function(d) { return yScale(d.fJob); })
     .attr("width", function(d) { return xScale(d.fValue); })
     .attr("height", yScale.bandwidth() )
-    .attr("fill", "Green")
+    .attr("fill", "#37ff45")
 });
 
 /* ------------------------------------ Barchart of the mother job fail ------------------------------------ */
@@ -161,7 +161,7 @@ d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/
     .attr("y", function(d) { return yScale(d.mJob); })
     .attr("width", function(d) { return xScale(d.mValue); })
     .attr("height", yScale.bandwidth() )
-    .attr("fill", "Red")
+    .attr("fill", "#ff3737")
 });
 
 
@@ -194,7 +194,7 @@ d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/
     .attr("y", function(d) { return yScale(d.mJob); })
     .attr("width", function(d) { return xScale(d.mValue); })
     .attr("height", yScale.bandwidth() )
-    .attr("fill", "Yellow");
+    .attr("fill", "#ffbc4b");
 });
 
 
@@ -227,9 +227,8 @@ d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/
     .attr("y", function(d) { return yScale(d.mJob); })
     .attr("width", function(d) { return xScale(d.mValue); })
     .attr("height", yScale.bandwidth())
-    .attr("fill", "Blue")
+    .attr("fill", "#257cff")
 });
-
 
 /* ------------------------------------ Barchart of the mother job excellent ------------------------------------ */
 d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/job_excellent.csv", function(data) {
@@ -260,5 +259,5 @@ d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/
     .attr("y", function(d) { return yScale(d.mJob); })
     .attr("width", function(d) { return xScale(d.mValue); })
     .attr("height", yScale.bandwidth() )
-    .attr("fill", "Green");
+    .attr("fill", "#37ff45");
 });
