@@ -11,7 +11,7 @@
 
 // set the dimensions and margins of the graph
 var margin = {top: 10, right: 30, bottom: 20, left: 50},
-    width = 700 - margin.left - margin.right,
+    width = 800 - margin.left - margin.right,
     height = 700 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
@@ -24,12 +24,12 @@ var svg = d3.select("#my_dataviz")
           "translate(" + margin.left + "," + margin.top + ")");
 
 // Parse the Data
-d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/Pstatus_result.csv", function(data) {
+d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/Famrel_result.csv", function(data) {
 
   // List of subgroups = header of the csv files = result here
   var subgroups = data.columns.slice(1)
 
-  // List of groups = family size here = value of the first column called Pstatus -> I show them on the X axis
+  // Value of the first column called Pstatus -> I show them on the X axis
   var groups = d3.map(data, function(d){return(d.Pstatus)}).keys()
 
   // Add X axis
@@ -77,5 +77,10 @@ d3.csv("https://raw.githubusercontent.com/vtenpo/DSDV_Project/main/project/data/
       .attr("fill", function(d) { return color(d.key); });
 
 })
+
+svg.append("circle").attr("cx",600).attr("cy",100).attr("r", 6).style("fill", "#e41a1c")
+svg.append("circle").attr("cx",600).attr("cy",130).attr("r", 6).style("fill", "#377eb8")
+svg.append("text").attr("x", 620).attr("y", 100).text("Pass").style("font-size", "15px").attr("alignment-baseline","middle")
+svg.append("text").attr("x", 620).attr("y", 130).text("Fail").style("font-size", "15px").attr("alignment-baseline","middle")
 
 </script>

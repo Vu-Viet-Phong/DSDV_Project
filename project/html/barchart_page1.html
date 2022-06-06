@@ -19,12 +19,8 @@
         </button>
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
           <ul class="navbar-nav">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Pie Chart</a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="../html/piechart1.html">Pie Chart 1</a></li>
-                <li><a class="dropdown-item" href="../html/piechart2.html">Pie Chart 2</a></li>
-              </ul>
+            <li class="nav-item">
+              <a class="nav-link" href="../html/piechart.html">Pie Chart</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="../html/barchart_page1.html">Bar Chart</a>
@@ -44,38 +40,30 @@
       </div>
       <div class="customer-row">
         <div class="col-left">
-          <div id="status-result"></div>
-          <p>Barchart of the number of student status results</p>
+          <div id="mother-edu-result"></div>
+          <p>Barchart of mothert education result</p>
         </div>
         <div class="col-right">
-          <div id="average_result"></div>
-          <p>
-            Barchart of each type of student status:
-            <select id="sort-select">
-              <option selected value="average">average</option>
-              <option value="good">good</option>
-              <option value="excellent">excellent</option>
-            </select>
-            result
-          </p>
+          <div id="father-edu-result"></div>
+          <p>Barchart of father education result</p>
         </div>
       </div>
     </div>
-    <hr>
+    <hr>    
     <!-- !END PAGE CONTENT! --> 
     <nav aria-label="Page navigation example">
       <ul class="pagination justify-content-center">
         <li class="page-item disabled">
-          <a class="page-link" href="#" tabindex="-1">Previous</a>
+          <a class="page-link" href="barchart_page1.html" tabindex="-1">Previous</a>
         </li>
         <li class="page-item"><a class="page-link" href="barchart_page1.html">1</a></li>
         <li class="page-item"><a class="page-link" href="barchart_page2.html">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item"><a class="page-link" href="barchart_page3.html">3</a></li>
         <li class="page-item">
-          <a class="page-link" href="#">Next</a>
+          <a class="page-link" href="barchart_page2.html">Next</a>
         </li>
       </ul>
     </nav>
-    <script type="text/javascript" src="../script/barchart_result.js"></script>
+    <script type="text/javascript" src="../script/barchart_education.js"></script>
   </body>
 </html>
