@@ -3,13 +3,18 @@
 }
 
 body {
-  background: linear-gradient(to right , #2c3e50, #3498db);
+  background: linear-gradient(to right, #3498db, #4c6e8f);
 }
 
-h1, h2, h3, h4, h5 { 
+h1, h2, h3, h4 { 
   font-family: "Open Sans", sans-serif; 
   font-size: 1 rem; 
   color:#574545 
+}
+
+h5 {
+  color:brown;
+  font-size: 0em;
 }
 
 p {
@@ -50,4 +55,9 @@ p {
 
 .border { 
   border: 1px solid black; padding: 15px 
+}
+
+.font {
+  font-family: "Open Sans", sans-serif; ;
+  font-size: larger; 
 }
